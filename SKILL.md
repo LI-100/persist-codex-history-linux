@@ -20,8 +20,8 @@ Example:
 
 ```bash
 python scripts/persist_codex_history_linux.py \
-  --host 45.205.25.118 \
-  --user root \
+  --host your-linux-host \
+  --user your-user \
   --password-env CODEX_SERVER_PASSWORD
 ```
 
