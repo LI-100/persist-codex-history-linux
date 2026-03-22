@@ -1,0 +1,4 @@
+interface:
+  display_name: "Persist Codex History"
+  short_description: "Keep Linux Codex chats across auth changes"
+  default_prompt: "Use $persist-codex-history-linux to make Codex chat history persist on a Linux server across API key or ChatGPT login changes."
