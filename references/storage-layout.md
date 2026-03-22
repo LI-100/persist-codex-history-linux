@@ -55,3 +55,14 @@ That is a different setup from the single-user default in this skill.
 - `auth.json` remains a normal file
 - the persistent directory contains the moved data
 - restarting Codex still shows previous conversation history
+
+## Provider Note
+
+History visibility may also depend on provider metadata stored in sessions and the state database.
+
+Do not assume:
+
+- every machine uses `openai`
+- every old session should be rewritten to `openai`
+
+Inspect provider values first and repair them only with an explicit target provider chosen for that machine's current usage.

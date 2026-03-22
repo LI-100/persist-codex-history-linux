@@ -25,6 +25,16 @@ python scripts/persist_codex_history_linux.py \
   --password-env CODEX_SERVER_PASSWORD
 ```
 
+If history files exist but `/resume` only shows a subset of threads, inspect provider metadata before changing anything:
+
+```bash
+python scripts/repair_codex_provider_visibility.py \
+  --host your-linux-host \
+  --user your-user \
+  --password-env CODEX_SERVER_PASSWORD \
+  --inspect
+```
+
 ## What To Persist
 
 Move these into the shared storage directory and link them back into `~/.codex`:
@@ -84,6 +94,19 @@ Confirm:
 
 After migration, advise the user to restart Codex once so future writes start cleanly from the new layout.
 
+### 5. Diagnose provider visibility issues
+
+Some Codex builds appear to surface resume history according to provider metadata stored in session/state files. When that metadata is inconsistent with the active login, `/resume` may show only part of the stored history even though the session files still exist.
+
+Use `scripts/repair_codex_provider_visibility.py` to:
+
+- inspect which `model_provider` values exist in `state_*.sqlite` and session metadata
+- back up the relevant files before any repair
+- rewrite provider metadata to an explicitly chosen provider when the user wants all stored history visible under the current provider context
+
+Do not hard-code `openai` in your reasoning or repairs. The target provider may be any provider name used on that machine.
+
 ## References
 
 Read [references/storage-layout.md](references/storage-layout.md) when you need the rationale, file list, and behavior notes for cross-auth shared history.
+Read [references/provider-visibility.md](references/provider-visibility.md) when history exists on disk but `/resume` only shows part of it.
