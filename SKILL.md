@@ -35,6 +35,12 @@ python scripts/repair_codex_provider_visibility.py \
   --inspect
 ```
 
+If one Linux host keeps switching between providers or accounts and you want the shared history to follow the latest active provider automatically, use the local automation scripts:
+
+```bash
+python scripts/install_local_provider_sync_systemd.py
+```
+
 ## What To Persist
 
 Move these into the shared storage directory and link them back into `~/.codex`:
@@ -106,7 +112,16 @@ Use `scripts/repair_codex_provider_visibility.py` to:
 
 Do not hard-code `openai` in your reasoning or repairs. The target provider may be any provider name used on that machine.
 
+For one local Linux host, use `scripts/sync_codex_provider_visibility_local.py` when:
+
+- the machine should keep history visible after provider switches
+- the latest active provider should become the canonical visible context
+- you want to skip session files that are still open by running Codex processes
+
+This does not make two different provider values simultaneously native-visible. It makes the history follow the newest active provider context over time.
+
 ## References
 
 Read [references/storage-layout.md](references/storage-layout.md) when you need the rationale, file list, and behavior notes for cross-auth shared history.
 Read [references/provider-visibility.md](references/provider-visibility.md) when history exists on disk but `/resume` only shows part of it.
+Read [references/provider-automation.md](references/provider-automation.md) when one Linux host should keep following the latest active provider automatically.

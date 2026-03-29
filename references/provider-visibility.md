@@ -23,6 +23,8 @@ The right target provider depends on the machine's actual usage. A host may have
 - another API-compatible provider
 - multiple providers over time
 
+Also do not assume different provider values can all stay natively visible at the same time. In practice, Codex appears to show history for one active provider context at a time. If the machine switches providers, the stored metadata usually has to be normalized again to the newly active provider.
+
 ## Safe Workflow
 
 1. Inspect current provider values first.
@@ -54,3 +56,5 @@ python scripts/repair_codex_provider_visibility.py \
   --target-provider your-provider-name \
   --apply
 ```
+
+For one Linux host that should keep following the latest active provider automatically, read [references/provider-automation.md](provider-automation.md).
